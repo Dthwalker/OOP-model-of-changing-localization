@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple language localization</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+<div class="main">
+    <div class="header wt-20 vs-40"></div>
+
+    <div class="sidebar">
+        <div class="contents">
+            <div class="txt-18 tw-700 mb-20">Содержание статьи</div>
+            <div class="contents__list">
+                <div><a href="#top">Наверх</a></div>
+                <div><a href="#p1">Подготовка</a></div>
+                <div><a href="#p2">Шина событий</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div id="top" class="mb-80">
+            <div class="date">03.12.2024</div>
+            <h1 class="mb-20"><span class="accent">////</span>Простая локализация</h1>
+            <div class="txt-14 mb-40">—— by DTHWalker</div>
+            <p class="txt-18 mb-10">Эта работа является примером мультиязычного интерфейса. В реализации нам понадобится <span class="bg-accent tw-700">шина событий</span>, а так же <span class="accent tw-700">компоненты, имеющие языковую локализацию</span>, которые просто подписываются на событие смены языка<p>
+            <div class="txt-14 tw-300 mb-40">Посмотреть код можно на <a href="#">GitHub</a> или <a href="#">CodePen</a></div>
+            <div class="wt-5 vs-10"></div>
+        </div>
+
+
+        <div id="p1" class="mb-80">
+            <h2><span class="accent">01</span><span>Подготовка</span></h2>
+            <p class="mb-20">Для начала создадим проект. Я создал простой сервер на <span class="bg-accent tw-700">Node.js</span>. Это нам потребуется для того, что бы в дальнейшем записывать и читать куки клиента с выбранным языком.
+                <br><br>
+                Мы опустим момент реализации серверной части, так как она нам не так важна.
+                Для начала я создам папку <span class="accent f-m">static</span>,
+                в которой я создам файл <span class="accent f-m">index.html</span>
+                и папку <span class="accent f-m">js</span>
+                с файлом <span class="accent f-m">Main.js</span>.
+                <br><br>
+                Сейчас моя файловая система выглядит так:
+            </p>
+
+            <div class="code mb-20">
+                <div class="code__title">Static</div>
+                <div class="code__struct">
+/static/
+|  index.html
+|  js/
+|  |  Main.js
+                </div>
+            </div>
+
+            <p class="mb-40">Файл <span class="accent f-m">Main.js</span> будет точкой входа в нашу программу, к которому мы будем подключать наши модули.</p>
+            <div class="wt-5 vs-10"></div>
+        </div>
+
+
+        <div id="p2" class="mb-80">
+            <h2><span class="accent">02</span><span>Шина событий</span></h2>
+            <p class="mb-20">
+                Первым делом создаем файл <span class="accent f-m">EventBus.js</span>
+                в папке <span class="accent f-m">js</span>. Это будет модуль <span class="bg-accent tw-700"></span> шины событий.
+                Через него мы будем триггерить событие смены языка на всех компонентах.
+                <br><br>
+                Данный модуль будет представлять собой статический класс. Тоесть все поля и методы будут статическими. Почему так?
+                Статика нам нужна для того, что бы мы могли ипортировать данный модуль в любую точку программы не как новый экземляр, а как самостоятельную сущность.
+            </p>
+
+            <div class="code mb-20">
+                <div class="code__title">EventBus.js</div>
+                <div class="code__code">
+export default class EventBus {
+
+    static #events = {}
+    
+    static sub(name, fn) {
+        if (!this.#events[name])
+            this.#events[name] = [];
+
+        this.#events[name].push(fn);
+
+        return this.unsub.bind(this, name, fn)
+    }
+
+    static unsub(name, fn) {
+        this.#events[name].filter(eFn => eFn != fn);
+    }
+
+    static emit(name, data) {
+        if (this.#events[name])
+            this.#events[name].forEach(fn => fn.call(null, data));
+    }
+
+}</div>
+            </div>
+
+            <p>Если вы вдруг не знакомы с данным паттерном, то вкрацие расскажу.
+                Все подписки на события происходят через данный класс.
+                Если в классе уже существует ивент, на который мы хотим подписаться, то мы подписываемся, а если нет, то создаем и подписываемся.
+                Таким образом можно более удобно и эффективно заниматся менеджментом событий и подписок на них.
+                <br><br>
+                Мы вернемся к этому классу позже. Сейчас нам нужно создать компоненты с локализациями.
+            </p>
+        </div>
+
+
+    </div>
+    <div class="footer wt-20 vs-40"></div>
+</div>
+
+
+    <script type="module" src="./js/Main.js"></script>
+</body>
+</html>
