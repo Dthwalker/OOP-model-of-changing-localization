@@ -1,16 +1,25 @@
 import warningTapeGradient from "./WarningTape.js";
 
 export default class Visual {
+
+    colors = {
+        dark   : '#24262b',
+        light  : '#e3ebd9',
+        accent : '#ffce2d',
+        addit1 : '#7fbb70',
+    }
     
     constructor() {
         this.warningDesign();
         this.smoothScroll();
         this.structFormat();
+        this.codeFormat();
     }
 
     warningDesign() {
-        warningTapeGradient(20)(document.querySelectorAll('.wt-20'));
-        warningTapeGradient(5)(document.querySelectorAll('.wt-5'));
+        let [a, b] = ['#24262b00', '#ffce2d'];
+        warningTapeGradient(20, this.colors.dark, this.colors.accent)(document.querySelectorAll('.wt-20'));
+        warningTapeGradient(5, this.colors.dark, this.colors.light)(document.querySelectorAll('.wt-5'));
     }
 
     smoothScroll() {
@@ -38,13 +47,20 @@ export default class Visual {
                 .replaceAll('|', '<span style="opacity: 0.3">|</span>')
                 .trim();
         });
+    }
+    
+    codeFormat() {
+        let syntaxAccent = /(\s|\.)\w*(?=\(|\.)|\sif\s/ig;
+        let syntaxWords  = /this|\sclass\s/ig
+
         document.querySelectorAll('.code__code').forEach(e => {
             e.innerHTML = e.innerHTML
                 .trim()
+                .replace(syntaxAccent, (a) => `<span class="accent">${a}</span>`)
+                .replace(syntaxWords, (a) => `<span style="color:${this.colors.addit1}">${a}</span>`)
                 .split('\n')
                 .map(e => `<div>${e}</div>`).join('\n')
-                //.map((e, i) => `<span style="opacity: 0.2">${i + 1}</span>   ${e}`).join('\n');
-        })
+        });
 
     }
 
