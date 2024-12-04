@@ -13,6 +13,10 @@ app.get('/', (req, res) => {
     res.sendFile(static + 'index.html');
 });
 
+app.get('/raw', (req, res) => {
+    res.sendFile(static + 'raw.html');
+});
+
 
 app.listen(port, host, () => {
     console.log(

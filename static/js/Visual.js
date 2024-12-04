@@ -1,4 +1,6 @@
 import warningTapeGradient from "./WarningTape.js";
+import EventBus from "./EventBus.js";
+
 
 export default class Visual {
 
@@ -10,10 +12,14 @@ export default class Visual {
     }
     
     constructor() {
-        this.warningDesign();
+        //this.warningDesign();
         this.smoothScroll();
         this.structFormat();
         this.codeFormat();
+        
+        EventBus.sub('localize', () => {
+            this.smoothScroll();
+        })
     }
 
     warningDesign() {

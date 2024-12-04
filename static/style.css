@@ -73,6 +73,16 @@ html, body {
     height: 10px;
 }
 
+.wt-20 {
+    background: linear-gradient(45deg, #ffce2d 0px, #24262b 1px, #24262b 20px, #ffce2d 21px, #ffce2d 40px, #24262b 41px, #24262b 60px, #ffce2d 61px);
+    background-size: 56.5px;
+}
+
+.wt-5 {
+    background: linear-gradient(45deg, #e3ebd9 0px, #24262b 1px, #24262b 5px, #e3ebd9 6px, #e3ebd9 10px, #24262b 11px, #24262b 15px, #e3ebd9 16px);
+    background-size: 14.125px;
+}
+
 .hs-40 {
     display: inline-block;
     width: 40px;
@@ -114,6 +124,64 @@ a {
 
     svg {
         width: 100%;
+    }
+}
+
+.lang {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 200;
+    display: grid;
+
+    > div {
+        background-color: var(--c-black);
+        outline: 2px solid var(--c-accent);
+        padding: 10px;
+    }
+    
+    & .lang__icon {
+        width: fit-content;
+        display: inline-block;
+        font-size: 18px;
+        font-weight: 900;
+        justify-self: right;
+        cursor: pointer;
+    }
+
+    & .lang__list {
+        overflow: hidden;
+        line-height: 0;
+        padding: 0 10px;
+        opacity: 0;
+        transition: 0.2s;
+        width: fit-content;
+        transform: translateY(2px);
+        text-align: right;
+
+        div {
+            font-weight: 700;
+
+            &:not(.active) {
+                cursor: pointer;
+                transition: 0.2s;
+                &:hover {
+                    color: var(--c-accent);
+                }
+            }
+
+            &.active {
+                opacity: 0.5;
+            }
+        }
+    }
+
+    &:hover {
+        .lang__list {
+            padding: 10px;
+            opacity: 1;
+            line-height: 1.3;
+        }
     }
 }
 

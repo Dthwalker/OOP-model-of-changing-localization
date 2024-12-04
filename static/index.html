@@ -14,54 +14,30 @@
 <body>
 
 <div class="logo">
-    <svg width="300" height="380" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 150C0 67.1573 67.1573 0 150 0V0C232.843 0 300 67.1573 300 150V350C300 366.569 286.569 380 270 380V380C253.431 380 240 366.569 240 350V330C240 324.477 235.523 320 230 320V320C224.477 320 220 324.477 220 330V350C220 366.569 206.569 380 190 380V380C173.431 380 160 366.569 160 350V330C160 324.477 155.523 320 150 320V320C144.477 320 140 324.477 140 330V350C140 366.569 126.569 380 110 380V380C93.4315 380 80 366.569 80 350V330C80 324.477 75.5228 320 70 320V320C64.4772 320 60 324.477 60 330V350C60 366.569 46.5685 380 30 380V380C13.4315 380 0 366.569 0 350V150Z" fill="#EAF7F0"/>
-        <rect x="58" y="120" width="60" height="120" rx="30" fill="#0A0A0A"/>
-        <rect x="178" y="120" width="60" height="120" rx="30" fill="#0A0A0A"/>
-        <circle cx="98" cy="180" r="5" fill="white"/>
-        <circle cx="198" cy="180" r="5" fill="white"/>
+    <svg width="300" height="420" viewBox="0 0 300 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M300 150C300 67.1573 232.843 0 150 0C67.1573 0 0 67.1573 0 150V380L7.88898 383.944C52.94 406.47 106.268 404.99 150 380C193.732 355.01 247.06 353.53 292.111 376.056L300 380V150Z" fill="#BDCBB1"/>
+        <path d="M0 150C0 67.1573 67.1573 0 150 0C232.843 0 300 67.1573 300 150V380L292.111 383.944C247.06 406.47 193.732 404.99 150 380C106.268 355.01 52.9399 353.53 7.88897 376.056L0 380L0 150Z" fill="#EAF7F0"/>
+        <rect x="60" y="120" width="60" height="120" rx="30" fill="#0A0A0A"/>
+        <rect x="180" y="120" width="60" height="120" rx="30" fill="#0A0A0A"/>
+        <circle cx="100" cy="170" r="8" fill="white"/>
+        <circle cx="200" cy="170" r="8" fill="white"/>
     </svg>
+</div>
+
+<div class="lang">
+    <div class="lang__icon"></div>
+    <div class="lang__list"></div>
 </div>
     
 <div class="main">
     <div class="header wt-20 vs-40"></div>
 
-    <div class="sidebar">
-        <div class="contents">
-            <div class="txt-18 tw-700 mb-20">Содержание статьи</div>
-            <div class="contents__list">
-                <div><a href="#top">Наверх</a></div>
-                <div><a href="#p1">Подготовка</a></div>
-                <div><a href="#p2">Шина событий</a></div>
-                <div><a href="#p3">Компоненты</a></div>
-            </div>
-        </div>
-    </div>
+    <div class="sidebar"></div>
 
     <div class="content">
 
-        <div id="top" class="mb-80">
-            <div class="date">03.12.2024</div>
-            <h1 class="mb-20"><span class="accent">////</span>Простая локализация</h1>
-            <div class="txt-14 mb-40">—— by DTHWalker</div>
-            <p class="txt-18 mb-10">Эта работа является примером мультиязычного интерфейса. В реализации нам понадобится <span class="bg-accent tw-700">шина событий</span>, а так же <span class="accent tw-700">компоненты, имеющие языковую локализацию</span>, которые просто подписываются на событие смены языка<p>
-            <div class="txt-14 tw-300 mb-40">Посмотреть код можно на <a href="#">GitHub</a> или <a href="#">CodePen</a></div>
-            <div class="wt-5 vs-10"></div>
-        </div>
-
 
         <div id="p1" class="mb-80">
-            <h2><span class="accent">01</span><span>Подготовка</span></h2>
-            <p class="mb-20">Для начала создадим проект. Я создал простой сервер на <span class="bg-accent tw-700">Node.js</span>. Это нам потребуется для того, что бы в дальнейшем записывать и читать куки клиента с выбранным языком.
-                <br><br>
-                Мы опустим момент реализации серверной части, так как она нам не так важна.
-                Для начала я создам папку <span class="accent f-m">static</span>,
-                в которой я создам файл <span class="accent f-m">index.html</span>
-                и папку <span class="accent f-m">js</span>
-                с файлом <span class="accent f-m">Main.js</span>.
-                <br><br>
-                Сейчас моя файловая система выглядит так:
-            </p>
 
             <div class="code mb-20">
                 <div class="code__title">Static</div>
@@ -72,22 +48,11 @@
 |  |  Main.js
                 </div>
             </div>
-
-            <p class="mb-40">Файл <span class="accent f-m">Main.js</span> будет точкой входа в нашу программу, к которому мы будем подключать наши модули.</p>
-            <div class="wt-5 vs-10"></div>
         </div>
 
 
         <div id="p2" class="mb-80">
-            <h2><span class="accent">02</span><span>Шина событий</span></h2>
-            <p class="mb-20">
-                Первым делом создаем файл <span class="accent f-m">EventBus.js</span>
-                в папке <span class="accent f-m">js</span>. Это будет модуль <span class="bg-accent tw-700"></span> шины событий.
-                Через него мы будем триггерить событие смены языка на всех компонентах.
-                <br><br>
-                Данный модуль будет представлять собой статический класс. Тоесть все поля и методы будут статическими. Почему так?
-                Статика нам нужна для того, что бы мы могли ипортировать данный модуль в любую точку программы не как новый экземляр, а как самостоятельную сущность.
-            </p>
+            
 
             <div class="code mb-20">
                 <div class="code__title">EventBus.js</div>
@@ -116,23 +81,13 @@ export default class EventBus {
 
 }</div>
             </div>
-
-            <p class="mb-40">Если вы вдруг не знакомы с данным паттерном, то я быстро расскажу.
-                Все подписки на события происходят через данный класс.
-                Если в классе уже существует ивент, на который мы хотим подписаться, то мы подписываемся, а если нет, то создаем и подписываемся.
-                Когда срабатывает ивент, выполняются все колбэки, подписанные на данное событие.
-                Таким образом можно более удобно и эффективно заниматся менеджментом событий и подписок на них.
-                <br><br>
-                Мы вернемся к этому классу позже. Сейчас нам нужно создать компоненты с локализациями.
-            </p>
-            <div class="wt-5 vs-10"></div>
         </div>
 
 
         <div id="p3" class="mb-80">
-            <h2><span class="accent">03</span><span>Компоненты с локализацией</span></h2>
+            <h2><span class="accent">03</span><span>Локализатор</span></h2>
             <p class="mb-20">
-                
+
             </p>
         </div>
 

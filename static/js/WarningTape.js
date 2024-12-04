@@ -20,5 +20,6 @@ export default function warningTapeGradient(width, c1, c2) {
         }
         if (!(element?.[Symbol.iterator] instanceof Function)) return set(element);
         [...element].forEach(e => set(e));
+        console.log(gradient, bgSize)
     }
 }
